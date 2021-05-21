@@ -12,9 +12,12 @@ import Events from './Events';
 import Interactor from './Interactor';
 import Metadata from './Metadata';
 import NodeInfo from './NodeInfo';
-import TemplateModule from './TemplateModule';
 import Transfer from './Transfer';
 import Upgrade from './Upgrade';
+
+import Rmrks from './Rmrks';
+import CreateCollection from './CreateCollection';
+import CreateRmrk from './CreateRmrk';
 
 function Main () {
   const [accountAddress, setAccountAddress] = useState(null);
@@ -73,7 +76,13 @@ function Main () {
             <Events />
           </Grid.Row>
           <Grid.Row>
-            <TemplateModule accountPair={accountPair} />
+            <Rmrks />
+          </Grid.Row>
+          <Grid.Row>
+            <CreateCollection accountPair={accountPair} />
+          </Grid.Row>
+          <Grid.Row>
+            <CreateRmrk accountPair={accountPair} />
           </Grid.Row>
         </Grid>
       </Container>

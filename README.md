@@ -1,116 +1,64 @@
-# Substrate Front End Template
+# BCA Test UI
 
-This template allows you to create a front-end application that connects to a
-[Substrate](https://github.com/paritytech/substrate) node back-end with minimal
-configuration. To learn about Substrate itself, visit the
-[Substrate Developer Hub](https://substrate.dev).
+The purpose of this project is to demonstrate the capabilities of the RMRK platform for NFTs (non-fungible tokens) as they relate to the Blockchain.art minimum viable product.
 
-The template is built with [Create React App](https://github.com/facebook/create-react-app)
-and [Polkadot js API](https://polkadot.js.org/api/). Familiarity with these tools
-will be helpful, but the template strives to be self-explanatory.
+## Launch
 
-## Using The Template
+In order to deploy this project locally, it's necessary to first launch a local development instance of the Kusama Network.
 
-### Installation
+### Kusama Network
 
-The codebase is installed using [git](https://git-scm.com/) and [yarn](https://yarnpkg.com/). This tutorial assumes you have installed yarn globally prior to installing it within the subdirectories. For the most recent version and how to install yarn, please refer to [yarn](https://yarnpkg.com/) documentation and installation guides. 
+This project was developed against [Kusama runtime v0.9.0](https://github.com/paritytech/polkadot/releases/tag/v0.9.0). Linux users may download [a prebuilt executable](https://github.com/paritytech/polkadot/releases/download/v0.9.0/polkadot); other users will need to [build the Polkadot/Kusama executable](https://substrate.dev/docs/en/knowledgebase/getting-started/) in order to launch a local development instance of the Kusama Network. Once the executable is present, launch it with the following parameters:
 
-```bash
-# Clone the repository
-git clone https://github.com/substrate-developer-hub/substrate-front-end-template.git
-cd substrate-front-end-template
-yarn install
+``sh
+--chain=kusama-dev --tmp --alice
 ```
 
-## Usage
+### Build & Deploy
 
-You can start the template in development mode to connect to a locally running node
+Use the following commands to build & deploy this project:
 
-```bash
-yarn start
+```sh
+yarn install && yarn start
 ```
 
-You can also build the app in production mode,
+## Test UI
 
-```bash
-yarn build
+The test UI contains some elements from the Front-End Template, such as an account chooser in the upper-right corner, some components that display basic information about the chain (e.g. current & finalized block), and a table that displays a list of available accounts and their respective balances - below these components are the components of the test UI. In order to complete this demo, ensure that the Alice account is selected in the account chooser.
+
+### RMRKs Table
+
+The RMRKs table is meant to display a list of all the RMRK collections and tokens, however, it is not working. In order to observe the effects of the front-end interactions, open the browser console and refer to the log messages.
+
+#### Bug
+
+Expected behavior: the RMRK subscription method updates the state of the React component.
+
+Actual behavior: changes to the state of the React component that are made from within the RMRK subscription do not have an effect.
+
+### Create Collection
+
+Fill out the Create Collection form with the following values to create a new collection:
+
 ```
-and open `build/index.html` in your favorite browser.
-
-## Configuration
-
-The template's configuration is stored in the `src/config` directory, with
-`common.json` being loaded first, then the environment-specific json file,
-and finally environment variables, with precedence.
-
-* `development.json` affects the development environment
-* `test.json` affects the test environment, triggered in `yarn test` command.
-* `production.json` affects the production environment, triggered in
-`yarn build` command.
-
-Some environment variables are read and integrated in the template `config` object,
-including:
-
-* `REACT_APP_PROVIDER_SOCKET` overriding `config[PROVIDER_SOCKET]`
-* `REACT_APP_DEVELOPMENT_KEYRING` overriding `config[DEVELOPMENT_KEYRING]`
-
-More on [React environment variables](https://create-react-app.dev/docs/adding-custom-environment-variables).
-
-When writing and deploying your own front end, you should configure:
-
-* Custom types as JSON in `src/config/types.json`. See
-  [Extending types](https://polkadot.js.org/api/start/types.extend.html).
-* `PROVIDER_SOCKET` in `src/config/production.json` pointing to your own
-  deployed node.
-* `DEVELOPMENT_KEYRING` in `src/config/common.json` be set to `false`.
-  See [Keyring](https://polkadot.js.org/api/start/keyring.html).
-
-### Specifying Connecting Node
-
-There are two ways to specify it:
-
-* With `PROVIDER_SOCKET` in `{common, development, production}.json`.
-* With `rpc=<ws or wss connection>` query paramter after the URL. This overrides the above setting.
-
-## Reusable Components
-
-### useSubstrate Custom Hook
-
-The custom hook `useSubstrate` provides access to the Polkadot js API and thus the
-keyring and the blockchain itself. Specifically it exposes this API.
-
-```js
-{
-  socket,
-  types,
-  keyring,
-  keyringState,
-  api,
-  apiState,
-}
+Name: Foo
+Max: 3
+Symbol: FOO
 ```
 
-- `socket` - The remote provider socket it is connecting to.
-- `types` - The custom types used in the connected node.
-- `keyring` - A keyring of accounts available to the user.
-- `keyringState` - One of `"READY"` or `"ERROR"` states. `keyring` is valid
-only when `keyringState === "READY"`.
-- `api` - The remote api to the connected node.
-- `apiState` - One of `"CONNECTING"`, `"READY"`, or `"ERROR"` states. `api` is valid
-only when `apiState === "READY"`.
+Wait until a log message confirms the collection was created before proceeding.
 
+### Create RMRK
 
-### TxButton Component
+Fill out the Create RMRK form with the following values to create a new token:
 
-The [TxButton](./src/substrate-lib/components/TxButton.js) handles basic
-[query](https://polkadot.js.org/api/start/api.query.html) and
-[transaction](https://polkadot.js.org/api/start/api.tx.html) requests to the
-connected node. You can reuse this component for a wide variety of queries and
-transactions. See [src/Transfer.js](./src/Transfer.js) for a transaction example
-and [src/ChainState.js](./src/ChainState.js) for a query example.
+```
+Collection: 070508030603050704-FOO
+Name: NewToken
+Instance: NewToken
+SN: 0000000000000123
+```
 
-### Account Selector
+## Upstream
 
-The [Account Selector](./src/AccountSelector.js) provides the user with a unified way to
-select their account from a keyring. If the Balances module is installed in the runtime,
-it also displays the user's token balance. It is included in the template already.
+This project was forked from the Substrate Developer Hub Front-End Template.

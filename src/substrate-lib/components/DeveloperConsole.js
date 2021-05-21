@@ -7,6 +7,7 @@ export default function DeveloperConsole (props) {
   if (keyringState === 'READY') { window.keyring = keyring; }
   window.util = require('@polkadot/util');
   window.utilCrypto = require('@polkadot/util-crypto');
+  window.rmrkTools = require('rmrk-tools');
 
   return null;
 }
